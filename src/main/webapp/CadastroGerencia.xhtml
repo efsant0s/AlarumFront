@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"     
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css"
+          integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css"
+          integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous"/>
+
+    <h:head>
+        <title>Controle de gerências</title>
+    </h:head>
+    <h:body>     
+        <ui:composition template="layout.xhtml">
+
+            <ui:define name="content">
+                <div class="container">
+                    <div class="page-header">
+                        <h1>Cadastro de gerências</h1>
+                    </div>
+
+
+                    <h:form class="mx-auto">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="nome">Nome gerência</label>
+                            <h:inputText class="form-control" a:placeholder="Desenvolvimento" id="nome" value="#{gerenciaView.gerencia.ds_gerencia}" required="required"/>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="exampleInputEmail1">Nome do responsável</label>
+                            <h:inputText class="form-control"  a:placeholder="Amanda Lima" id="exampleInputEmail1" value="#{gerenciaView.gerencia.nm_responsavel}" required="required"/>
+
+                        </div> 
+                        <div class="form-group col-xs-6 col-sm-12 col-md-2" style="padding-left: 0; padding-right: 0;">
+                            <label>&nbsp;</label>
+                            <br></br>
+                            <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{gerenciaView.salvaGerencia()}"/>
+
+                            <button class="btn btn-default">Cancelar</button>
+                        </div>
+
+                    </h:form>
+
+                    <h:form >
+                        <table id="tableGerencias" class="table table-condensed table-striped"> 
+                            <tr>
+                                <th>Nome gerência</th>
+                                <th>Nome responsável</th>
+                            </tr>
+
+                            <ui:repeat var="elem" value="#{gerenciaView.listaGerencia}">
+
+                                <tr>                       
+                                    <td>
+
+                                        #{elem.ds_gerencia}
+                                    </td>
+                                    <td>
+
+                                        #{elem.nm_responsavel}
+                                    </td>
+                                    <td>
+                                        <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{gerenciaView.excluiGerencia(elem)}"/>                                
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </table>
+                    </h:form>
+
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+
+
+
+    <style>
+        #tableGerencias tr td:last-child,
+        #tableGerencias tr td:nth-child(5) {
+            text-align: center;
+        }
+
+        .table td .fa {
+            font-size: 18px;
+            vertical-align: middle;
+
+        }
+    </style>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+</html>
