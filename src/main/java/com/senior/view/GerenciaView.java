@@ -27,22 +27,18 @@ import javax.servlet.ServletException;
 public class GerenciaView {
 
     private GerenciaDao gerenciaDao = new GerenciaDao();
-    private Map<String, Gerencia> listaGerencias = gerenciaDao.getListaGerencia();
     private Gerencia gerencia = new Gerencia();
 
     public void excluiGerencia(Gerencia gerencia) {
         gerenciaDao.excluir(gerencia);
-        atualizaLista();
     }
 
     public void salvaGerencia(Gerencia gerencia) {
         gerenciaDao.inserir(gerencia);
-        atualizaLista();
     }
 
     public GerenciaView() {
         try {
-            atualizaLista();
             gerenciaDao.lista();
         } catch (Exception ex) {
             Logger.getLogger(GerenciaView.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,16 +46,8 @@ public class GerenciaView {
         }
     }
 
-    private void atualizaLista() {
-        listaGerencias = gerenciaDao.getListaGerencia();
-    }
-
-    public Map<String, Gerencia> getMapGerencias() {
-        return listaGerencias;
-    }
-
     public List<Gerencia> getListaGerencia() {
-        return new ArrayList<Gerencia>(listaGerencias.values());
+        return new ArrayList<Gerencia>(gerenciaDao.getListaGerencia().values());
     }
 
     public Gerencia getGerencia() {
@@ -73,6 +61,5 @@ public class GerenciaView {
     public void salvaGerencia() throws ServletException {
         gerenciaDao.inserir(gerencia);
         gerencia = new Gerencia();
-        atualizaLista();
     }
 }

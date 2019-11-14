@@ -8,6 +8,9 @@ package com.senior.utils;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.senior.model.Mensagem;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,9 +42,14 @@ public class Utils {
         } catch (Exception ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            System.exit(0);
         }
 
+    }
+
+    public static void enviaMensagem(String gerencia, Mensagem msg) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference msgRef = database.getReference().child("banco").child(gerencia).child("mensagem");
+        msgRef.setValueAsync(msg);
     }
 
     private static String stringHexa(byte[] bytes) {

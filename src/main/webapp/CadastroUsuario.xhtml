@@ -29,7 +29,8 @@
     <h:head>
         <title>Controle de usuários</title>
     </h:head>
-    <h:body>        <ui:composition template="layout.xhtml">
+    <h:body>        
+        <ui:composition template="layout.xhtml">
 
             <ui:define name="content">
                 <div class="container">
@@ -58,7 +59,8 @@
                             <br></br>
                             <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{usuarioLoginView.salvaUsuario()}"/>
 
-                            <button class="btn btn-default">Cancelar</button>
+
+                            <button class="btn btn-default">Atualizar</button>
                         </div>
 
                     </h:form>
@@ -70,27 +72,28 @@
                                 <th>E-mail</th>
                                 <th>Senha</th>
                             </tr>
+                            <h:panelGroup id="toUpdate">
+                                <ui:repeat var="elem" value="#{usuarioLoginView.listaUsuario}">
 
-                            <ui:repeat var="elem" value="#{usuarioLoginView.listaUsuario}">
+                                    <tr>                       
+                                        <td>
 
-                                <tr>                       
-                                    <td>
+                                            #{elem.ds_login}
+                                        </td>
+                                        <td>
 
-                                        #{elem.ds_login}
-                                    </td>
-                                    <td>
+                                            #{elem.ds_email}
+                                        </td>
+                                        <td>
 
-                                        #{elem.ds_email}
-                                    </td>
-                                    <td>
-
-                                        #{elem.ds_senha}
-                                    </td>
-                                    <td>
-                                        <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{usuarioLoginView.excluiUsuario(elem)}"/>                                
-                                    </td>
-                                </tr>
-                            </ui:repeat>
+                                            #{elem.ds_senha}
+                                        </td>
+                                        <td>
+                                            <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{usuarioLoginView.excluiUsuario(elem)}"/>                                
+                                        </td>
+                                    </tr>
+                                </ui:repeat>
+                            </h:panelGroup>       
                         </table>
                     </h:form>
 

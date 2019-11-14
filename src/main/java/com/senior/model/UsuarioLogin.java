@@ -20,7 +20,7 @@ public class UsuarioLogin {
     public UsuarioLogin() {
     }
 
-    public UsuarioLogin(String login, String email,  String senha) {
+    public UsuarioLogin(String login, String email, String senha) {
         this.ds_email = email;
         this.ds_login = login;
         this.ds_senha = Utils.md5(senha);
@@ -39,7 +39,7 @@ public class UsuarioLogin {
     }
 
     public void setDs_senha(String ds_senha) {
-        this.ds_senha = Utils.md5(ds_senha);
+        this.ds_senha = (ds_senha);
     }
 
     public String getDs_email() {

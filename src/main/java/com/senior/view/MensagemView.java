@@ -26,40 +26,34 @@ import javax.servlet.ServletException;
 @SessionScoped
 public class MensagemView {
 
-    private MensagemDao mensagemDao = new MensagemDao();
-    private Map<String, Mensagem> listaMensagems = mensagemDao.getListaMensagem();
+    private MensagemDao mensagemDao = new MensagemDao(); 
     private Mensagem mensagem = new Mensagem();
 
     public void excluiMensagem(Mensagem mensagem) {
-        mensagemDao.excluir(mensagem);
-        atualizaLista();
+        mensagemDao.excluir(mensagem); 
     }
 
     public void salvaMensagem(Mensagem mensagem) {
-        mensagemDao.inserir(mensagem);
-        atualizaLista();
+        mensagemDao.inserir(mensagem); 
     }
 
     public MensagemView() {
         try {
-            mensagemDao.lista();
-            atualizaLista();
+            mensagemDao.lista(); 
         } catch (Exception ex) {
             Logger.getLogger(MensagemView.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
     }
 
-    private void atualizaLista() {
-        listaMensagems = mensagemDao.getListaMensagem();
-    }
+ 
 
     public Map<String, Mensagem> getMapMensagems() {
-        return listaMensagems;
+        return mensagemDao.getListaMensagem();
     }
 
     public List<Mensagem> getListaMensagem() {
-        return new ArrayList<Mensagem>(listaMensagems.values());
+        return new ArrayList<Mensagem>(mensagemDao.getListaMensagem().values());
     }
 
     public Mensagem getMensagem() {
@@ -72,7 +66,6 @@ public class MensagemView {
 
     public void salvaMensagem() throws ServletException {
         mensagemDao.inserir(mensagem);
-        mensagem = new Mensagem();
-        atualizaLista();
+        mensagem = new Mensagem(); 
     }
 }
