@@ -43,8 +43,10 @@
                         <ui:repeat var="elem" value="#{envioTudoView.listaGerencia}">
                             <table id="tableUsuarios" class="table table-condensed table-striped"> 
                                 <div class="table-tittle">
-                                    <h4>#{elem}</h4>
+                                    <h4>#{elem}<p:commandButton  class="btn btn-default" value="Enviar mensagem" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
+                                    </h4> 
                                 </div>
+                                <p:separator />
                                 <tr>
                                     <th> Nome</th>
                                     <th> Nome de usuário</th>
@@ -53,7 +55,6 @@
                                     <th> Ip computador</th>
                                     <th> PC Nome</th>
                                 </tr>
-                                <p:commandButton  class="btn btn-default" value="Enviar mensagem" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
                                 <ui:repeat var="user" value="#{envioTudoView.getListaUsuario(elem)}">
 
                                     <tr>                       
@@ -95,7 +96,7 @@
                                 <th>Mensagem</th>
                                 <th>Enviar</th> 
                             </tr>
-                            
+
                             <ui:repeat var="elem" value="#{mensagemView.listaMensagem}">
 
                                 <tr>                       
@@ -118,10 +119,7 @@
                         </table>
                     </h:form>
                 </p:dialog> 
-            </ui:define>
-            <ui:define name="btnDireita"> 
-                <h:commandButton   value="Todos usuários" action="EnvioMensagem" /><br/>
-            </ui:define>
+            </ui:define> 
         </ui:composition>
 
     </h:body>

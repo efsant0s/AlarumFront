@@ -40,27 +40,32 @@
 
 
                     <h:form class="mx-auto">
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
                             <label for="nome">Login</label>
                             <h:inputText class="form-control" a:placeholder="efsantos" id="nome" value="#{usuarioLoginView.usuario.ds_login}" required="required"/>
                         </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
                             <label for="exampleInputEmail1">E-mail</label>
                             <h:inputText class="form-control"  a:placeholder="eddu.felipe@gmail.com" id="exampleInputEmail1" value="#{usuarioLoginView.usuario.ds_email}" required="required"/>
 
                         </div> 
-                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
                             <label for="exampleInputEmail1">Senha</label>
-                            <h:inputText id="tel" class="form-control" value="#{usuarioLoginView.usuario.ds_senha}" required="required"/>
+                            <h:inputSecret id="tel" class="form-control" value="#{usuarioLoginView.usuario.ds_senha}" required="required"/>
                             <p:watermark for="tel" value="**********" id="watermark4" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                            <label for="ieAdmin">Administrador</label><br/>
+                            <p:selectOneMenu id="ieAdmin" value="#{usuarioLoginView.usuario.ie_admin}" style="width:125px">
+                                <f:selectItem itemLabel="Não" itemValue="N" />
+                                <f:selectItem itemLabel="Sim" itemValue="S" />
+                            </p:selectOneMenu>
                         </div>
                         <div class="form-group col-xs-6 col-sm-12 col-md-2" style="padding-left: 0; padding-right: 0;">
                             <label>&nbsp;</label>
                             <br></br>
                             <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{usuarioLoginView.salvaUsuario()}"/>
-
-
-                            <button class="btn btn-default">Atualizar</button>
+                            <button class="btn btn-default">Atualizar </button>
                         </div>
 
                     </h:form>
@@ -71,6 +76,8 @@
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>Senha</th>
+                                <th>Administrador</th>
+                                <th>Excluir usuário</th>
                             </tr>
                             <h:panelGroup id="toUpdate">
                                 <ui:repeat var="elem" value="#{usuarioLoginView.listaUsuario}">
@@ -87,6 +94,10 @@
                                         <td>
 
                                             #{elem.ds_senha}
+                                        </td>
+                                        <td>
+
+                                            #{elem.ie_admin}
                                         </td>
                                         <td>
                                             <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{usuarioLoginView.excluiUsuario(elem)}"/>                                
