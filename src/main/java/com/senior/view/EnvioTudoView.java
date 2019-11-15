@@ -24,14 +24,21 @@ import javax.faces.bean.SessionScoped;
 public class EnvioTudoView {
 
     private EnvioTudoDao enviaDao = new EnvioTudoDao();
-
+    private String gerenciaSelecionada;
+    public void setGrupoEnvio(String gerencia){
+        this.gerenciaSelecionada =  gerencia;
+    }
     public List<String> getListaGerencia() {
         return new ArrayList<>(enviaDao.getListaGrupos().keySet());
     }
     public void enviaMensagemTodos(Mensagem msg){
         enviaDao.enviaMensagemParaTodos(getListaGerencia(), msg);
     }
-
+    
+    public void enviaMensagemGrupo(Mensagem msg){
+        enviaDao.enviaMensagemParaGrupo(gerenciaSelecionada, msg);
+    }
+    
     public List<Usuario> getListaUsuario(String gerencia) {
         return new ArrayList<Usuario>(enviaDao.getListaGrupos().get(gerencia).values());
     }

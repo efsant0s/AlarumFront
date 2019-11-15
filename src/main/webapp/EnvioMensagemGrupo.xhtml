@@ -38,23 +38,25 @@
                     </div>
 
                     <h:form >
-                        <table id="tableUsuarios" class="table table-condensed table-striped"> 
-                            <tr>
-                                <th> Gerência</th>
-                                <th> Nome</th>
-                                <th> Nome de usuário</th>
-                                <th> Última sincronização</th>
-                                <th> Sistema operacional</th>
-                                <th> Ip computador</th>
-                                <th> PC Nome</th>
-                            </tr>
-                            <ui:repeat var="elem" value="#{envioTudoView.listaGerencia}">
+
+
+                        <ui:repeat var="elem" value="#{envioTudoView.listaGerencia}">
+                            <table id="tableUsuarios" class="table table-condensed table-striped"> 
+                                <div class="table-tittle">
+                                    <h4>#{elem}</h4>
+                                </div>
+                                <tr>
+                                    <th> Nome</th>
+                                    <th> Nome de usuário</th>
+                                    <th> Última sincronização</th>
+                                    <th> Sistema operacional</th>
+                                    <th> Ip computador</th>
+                                    <th> PC Nome</th>
+                                </tr>
+                                <p:commandButton  class="btn btn-default" value="Enviar mensagem" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
                                 <ui:repeat var="user" value="#{envioTudoView.getListaUsuario(elem)}">
 
-                                    <tr>  
-                                        <td>
-                                            #{elem} 
-                                        </td>                     
+                                    <tr>                       
                                         <td>
                                             #{user.nm_apelido}
                                         </td>
@@ -80,11 +82,11 @@
                                         </td> 
                                     </tr>
                                 </ui:repeat>
-                            </ui:repeat>
-                        </table>
+                            </table>
+                        </ui:repeat>
                     </h:form>
 
-                </div><p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg2"  >
+                </div><p:dialog header="Modal Dialog" showEffect="size" widgetVar="dlg2"  >
                     <h:form >
                         <table id="tableMensagems" class="table table-condensed table-striped"> 
                             <tr>
@@ -93,7 +95,7 @@
                                 <th>Mensagem</th>
                                 <th>Enviar</th> 
                             </tr>
-
+                            
                             <ui:repeat var="elem" value="#{mensagemView.listaMensagem}">
 
                                 <tr>                       
@@ -109,7 +111,7 @@
                                         #{elem.ds_mensagem}
                                     </td> 
                                     <td>
-                                        <h:commandButton  class="btn btn-default" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemTodos(elem)}"/>                                
+                                        <h:commandButton  class="btn btn-default" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemGrupo(elem)}"/>                                
                                     </td>
                                 </tr>
                             </ui:repeat>
@@ -117,13 +119,8 @@
                     </h:form>
                 </p:dialog> 
             </ui:define>
-            <ui:define name="btnDireita">
-                <h:commandButton value="Enviar mensagem" type="button" onclick="PF('dlg2').show();" />
-                <h:form>
-                    <h:commandButton   value="Para todos" action="EnvioMensagem" /><br/>
-                    <h:commandButton   value="Para grupos" action="EnvioMensagemGrupo" /><br/>
-                </h:form>
-
+            <ui:define name="btnDireita"> 
+                <h:commandButton   value="Todos usuários" action="EnvioMensagem" /><br/>
             </ui:define>
         </ui:composition>
 

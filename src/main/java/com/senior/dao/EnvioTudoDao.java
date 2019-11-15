@@ -83,4 +83,8 @@ public class EnvioTudoDao {
         });
 
     }
+
+    public void enviaMensagemParaGrupo(String gerenciaSelecionada, Mensagem msg) {
+       Utils.enviaMensagem(gerenciaSelecionada, msg);
+    }
 }

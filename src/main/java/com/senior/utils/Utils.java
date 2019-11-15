@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -48,6 +50,7 @@ public class Utils {
 
     public static void enviaMensagem(String gerencia, Mensagem msg) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        msg.setDt_atualizacao(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
         DatabaseReference msgRef = database.getReference().child("banco").child(gerencia).child("mensagem");
         msgRef.setValueAsync(msg);
     }
