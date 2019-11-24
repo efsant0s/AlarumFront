@@ -41,5 +41,5 @@ public class EnvioTudoView {
     
     public List<Usuario> getListaUsuario(String gerencia) {
         return new ArrayList<Usuario>(enviaDao.getListaGrupos().get(gerencia).values());
-    }
+    } 
 }

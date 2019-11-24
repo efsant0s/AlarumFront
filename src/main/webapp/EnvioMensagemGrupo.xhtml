@@ -34,7 +34,9 @@
             <ui:define name="content">
                 <div class="container">
                     <div class="page-header">
-                        <h1>Lista de todos os usuários</h1>
+                        <h1>Lista de todos os usuários </h1>
+                        <h:commandButton class="btn btn-default" value="Enviar mensagem para todos" type="button" onclick="PF('dlg3').show();" /> 
+
                     </div>
 
                     <h:form >
@@ -44,13 +46,14 @@
                             <table id="tableUsuarios" class="table table-condensed table-striped"> 
                                 <div class="table-tittle">
                                     <h4>#{elem}<p:commandButton  class="btn btn-default" value="Enviar mensagem" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
-                                    </h4> 
+                                        <button class="btn btn-default">Atualizar </button></h4> 
                                 </div>
                                 <p:separator />
                                 <tr>
                                     <th> Nome</th>
                                     <th> Nome de usuário</th>
                                     <th> Última sincronização</th>
+                                    <th> Última confirmação</th>
                                     <th> Sistema operacional</th>
                                     <th> Ip computador</th>
                                     <th> PC Nome</th>
@@ -63,11 +66,15 @@
                                         </td>
                                         <td>
 
-                                            #{user.nm_apelido}
+                                            #{user.nm_usuario}
                                         </td>
                                         <td>
 
                                             #{user.dt_atualizacao}
+                                        </td>
+                                        <td>
+
+                                            #{user.dt_confirmacao}
                                         </td>
                                         <td>
 
@@ -87,7 +94,41 @@
                         </ui:repeat>
                     </h:form>
 
-                </div><p:dialog header="Modal Dialog" showEffect="size" widgetVar="dlg2"  >
+                </div>
+                <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg3"  >
+                    <h:form >
+                        <table id="tableMensagems" class="table table-condensed table-striped"> 
+                            <tr>
+                                <th>Tipo mensagem</th>
+                                <th>Título</th>
+                                <th>Mensagem</th>
+                                <th>Enviar</th> 
+                            </tr>
+
+                            <ui:repeat var="elem" value="#{mensagemView.listaMensagem}">
+
+                                <tr>                       
+                                    <td>
+                                        #{elem.ie_tipo}
+                                    </td>
+                                    <td>
+
+                                        #{elem.ds_titulo}
+                                    </td>
+                                    <td>
+
+                                        #{elem.ds_mensagem}
+                                    </td> 
+                                    <td>
+                                        <h:commandButton  class="btn btn-default" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemTodos(elem)}"/>                                
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </table>    
+
+                    </h:form>
+                </p:dialog> 
+                <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg2"  >
                     <h:form >
                         <table id="tableMensagems" class="table table-condensed table-striped"> 
                             <tr>
@@ -119,9 +160,8 @@
                         </table>
                     </h:form>
                 </p:dialog> 
-            </ui:define> 
+            </ui:define>  
         </ui:composition>
-
     </h:body>
 
 

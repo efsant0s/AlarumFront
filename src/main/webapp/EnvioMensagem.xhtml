@@ -44,6 +44,7 @@
                                 <th> Nome</th>
                                 <th> Nome de usuário</th>
                                 <th> Última sincronização</th>
+                                <th> Última confirmação</th>
                                 <th> Sistema operacional</th>
                                 <th> Ip computador</th>
                                 <th> PC Nome</th>
@@ -60,12 +61,16 @@
                                         </td>
                                         <td>
 
-                                            #{user.nm_apelido}
+                                            #{user.nm_usuario}
                                         </td>
                                         <td>
 
                                             #{user.dt_atualizacao}
                                         </td>
+                                        <td>
+
+                                            #{user.dt_confirmacao}
+                                        </td>                                        
                                         <td>
 
                                             #{user.ds_os_nome}

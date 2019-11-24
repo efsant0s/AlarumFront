@@ -26,6 +26,8 @@ public class EnvioTudoDao {
 
     private static Map<String, Map<String, Usuario>> listaGrupos = new HashMap();
 
+    private static Map<String, Map<String, Mensagem>> listaMensagem = new HashMap<>();
+
     public static Map<String, Map<String, Usuario>> getListaGrupos() {
         return listaGrupos;
     }
@@ -36,18 +38,17 @@ public class EnvioTudoDao {
         }
     }
 
-    
-
     public void lista() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRootRef = database.getReference();
         DatabaseReference gerenRef = myRootRef.child("banco");
-        final Map<String, Map<String, Usuario>> listaValores = new HashMap();
+        final Map<String, Map<String, Usuario>> mapUsuario = new HashMap();
+        final Map<String, Map<String, Mensagem>> listaMsg = new HashMap();
         gerenRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    listaValores.clear();
+                    mapUsuario.clear();
                     Iterator<DataSnapshot> gerenSnaps = dataSnapshot.getChildren().iterator();
                     while (gerenSnaps.hasNext()) {
                         DataSnapshot gerenSnap = gerenSnaps.next();
@@ -62,12 +63,21 @@ public class EnvioTudoDao {
                                     Usuario fcmUser = userSnaps.getValue(Usuario.class);
                                     listaUsuario.put(fcmUser.getNm_apelido(), fcmUser);
                                 }
-                                listaValores.put(gerenSnap.getKey(), listaUsuario);
+                                mapUsuario.put(gerenSnap.getKey(), listaUsuario);
+                            }
+                            if ("mensagem".equals(grupoSnap.getKey())) {
+                                Iterator<DataSnapshot> mensagemSnap = grupoSnap.getChildren().iterator();
+                                Map<String, Mensagem> listaUsuario = new HashMap<>();
+                                while (mensagemSnap.hasNext()) {
+                                    DataSnapshot userSnaps = mensagemSnap.next(); 
+                                 
+                                }
+                                 
                             }
                         }
 
                     }
-                    listaGrupos = listaValores;
+                    listaGrupos = mapUsuario;
 
                 } catch (Exception e) {
                     //Log the exception and the key 
@@ -85,6 +95,6 @@ public class EnvioTudoDao {
     }
 
     public void enviaMensagemParaGrupo(String gerenciaSelecionada, Mensagem msg) {
-       Utils.enviaMensagem(gerenciaSelecionada, msg);
+        Utils.enviaMensagem(gerenciaSelecionada, msg);
     }
 }
