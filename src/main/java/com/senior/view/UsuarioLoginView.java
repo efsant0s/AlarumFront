@@ -26,23 +26,19 @@ import javax.servlet.ServletException;
 @SessionScoped
 public class UsuarioLoginView {
 
-    private UsuarioLoginDao usuarioLoginDao = new UsuarioLoginDao();
-    private Map<String, UsuarioLogin> listaUsuarios = usuarioLoginDao.getListaUsuario();
+    private UsuarioLoginDao usuarioLoginDao = new UsuarioLoginDao(); 
     private UsuarioLogin usuario = new UsuarioLogin();
 
     public void excluiUsuario(UsuarioLogin usuario) {
         usuarioLoginDao.excluir(usuario);
-        atualizaLista();
     }
 
     public void salvaUsuario(UsuarioLogin usuario) {
-        usuarioLoginDao.inserir(usuario);
-        atualizaLista();
+        usuarioLoginDao.inserir(usuario); 
     }
 
     public UsuarioLoginView() {
-        try {
-            atualizaLista();
+        try { 
             usuarioLoginDao.lista();
         } catch (Exception ex) {
             Logger.getLogger(UsuarioLoginView.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,16 +46,14 @@ public class UsuarioLoginView {
         }
     }
 
-    private void atualizaLista() {
-        listaUsuarios = usuarioLoginDao.getListaUsuario();
-    }
+  
 
     public Map<String, UsuarioLogin> getMapUsuarios() {
-        return listaUsuarios;
+        return usuarioLoginDao.getListaUsuario();
     }
 
     public List<UsuarioLogin> getListaUsuario() {
-        return new ArrayList<UsuarioLogin>(listaUsuarios.values());
+        return new ArrayList<UsuarioLogin>(usuarioLoginDao.getListaUsuario().values());
     }
 
     public UsuarioLogin getUsuario() {
@@ -72,7 +66,6 @@ public class UsuarioLoginView {
 
     public void salvaUsuario() throws ServletException {
         usuarioLoginDao.inserir(usuario);
-        usuario = new UsuarioLogin();
-        atualizaLista();
+        usuario = new UsuarioLogin(); 
     }
 }

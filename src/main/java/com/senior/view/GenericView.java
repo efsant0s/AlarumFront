@@ -5,6 +5,7 @@
  */
 package com.senior.view;
 
+import com.senior.dao.EnvioTudoDao;
 import com.senior.dao.GerenciaDao;
 import com.senior.dao.MensagemDao;
 import com.senior.dao.UsuarioLoginDao;
@@ -26,6 +27,7 @@ public class GenericView {
     private GerenciaDao gerenciaDao = new GerenciaDao();
     private MensagemDao mensagemDao = new MensagemDao();
     private UsuarioLoginDao usuarioLoginDao = new UsuarioLoginDao();
+    private EnvioTudoDao enviaDao = new EnvioTudoDao();
     public String getValor(){
         return "foi";
     }
@@ -39,6 +41,7 @@ public class GenericView {
         gerenciaDao.lista();
         mensagemDao.lista();
         usuarioLoginDao.lista();
+        enviaDao.lista();
     }
 
 }

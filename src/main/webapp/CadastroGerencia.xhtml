@@ -54,7 +54,7 @@
                             <br></br>
                             <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{gerenciaView.salvaGerencia()}"/>
 
-                            <button class="btn btn-default">Cancelar</button>
+                             <button class="btn btn-default">Atualizar </button>
                         </div>
 
                     </h:form>
@@ -64,6 +64,7 @@
                             <tr>
                                 <th>Nome gerência</th>
                                 <th>Nome responsável</th>
+                                <th>Excluir</th> 
                             </tr>
 
                             <ui:repeat var="elem" value="#{gerenciaView.listaGerencia}">

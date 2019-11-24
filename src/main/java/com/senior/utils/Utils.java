@@ -8,12 +8,17 @@ package com.senior.utils;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.senior.model.Mensagem;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
@@ -39,9 +44,15 @@ public class Utils {
         } catch (Exception ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-            System.exit(0);
         }
 
+    }
+
+    public static void enviaMensagem(String gerencia, Mensagem msg) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        msg.setDt_atualizacao(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
+        DatabaseReference msgRef = database.getReference().child("banco").child(gerencia).child("mensagem");
+        msgRef.setValueAsync(msg);
     }
 
     private static String stringHexa(byte[] bytes) {

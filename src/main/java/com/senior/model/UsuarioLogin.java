@@ -16,14 +16,31 @@ public class UsuarioLogin {
     private String ds_login;
     private String ds_senha;
     private String ds_email;
+    private String ie_admin;
 
     public UsuarioLogin() {
     }
 
-    public UsuarioLogin(String login, String email,  String senha) {
+    public String getIe_admin() {
+        return ie_admin;
+    }
+
+    public void setIe_admin(String ie_admin) {
+        this.ie_admin = ie_admin;
+    }
+
+    public UsuarioLogin(String login, String email, String senha) {
         this.ds_email = email;
         this.ds_login = login;
         this.ds_senha = Utils.md5(senha);
+        this.ie_admin = "N";
+    }
+
+    public UsuarioLogin(String login, String email, String senha, String ie_admin) {
+        this.ds_email = email;
+        this.ds_login = login;
+        this.ds_senha = Utils.md5(senha);
+        this.ie_admin = ie_admin;
     }
 
     public String getDs_login() {
@@ -39,7 +56,7 @@ public class UsuarioLogin {
     }
 
     public void setDs_senha(String ds_senha) {
-        this.ds_senha = Utils.md5(ds_senha);
+        this.ds_senha = (ds_senha);
     }
 
     public String getDs_email() {
