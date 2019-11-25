@@ -64,7 +64,7 @@ public class MensagemDao implements Repository {
         Mensagem mensag = (Mensagem) o;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRootRef = database.getReference();
-        listaMensagem.remove(mensag.getDs_mensagem());
+        listaMensagem.remove(mensag.getIe_tipo());
         myRootRef.child("mensagens").setValueAsync(listaMensagem);
        
     }

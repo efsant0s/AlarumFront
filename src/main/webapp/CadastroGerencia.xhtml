@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -29,67 +30,71 @@
     <h:head>
         <title>Controle de gerências</title>
     </h:head>
-    <h:body>     
-        <ui:composition template="layout.xhtml">
+    <h:body> 
+        <h:inputHidden value="#{genericView.valor}" />     
+        <b:container fluid="true">
+            <b:row>
+                <b:column col-sm="3" col-md="2" styleClass="sidebar">
+                    <b:listLinks>
+                        <b:image value="https://s1.logaster.com/static/v3/img/products/logo.webp" />
+                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" active="true"/>
+                        <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários" />
+                        <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" />
+                        <b:navLink href="CadastroGerencia.jsf" value="Cadastro de gerências" />
+                    </b:listLinks>
 
-            <ui:define name="content">
-                <div class="container">
-                    <div class="page-header">
-                        <h1>Cadastro de gerências</h1>
-                    </div>
+                </b:column>
+            </b:row>
+        </b:container>
+        <div class="container">
+            <div class="page-header">
+                <h1>Cadastro de gerências</h1>
+            </div>
 
 
-                    <h:form class="mx-auto">
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                            <label for="nome">Nome gerência</label>
-                            <h:inputText class="form-control" a:placeholder="Desenvolvimento" id="nome" value="#{gerenciaView.gerencia.ds_gerencia}" required="required"/>
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                            <label for="exampleInputEmail1">Nome do responsável</label>
-                            <h:inputText class="form-control"  a:placeholder="Amanda Lima" id="exampleInputEmail1" value="#{gerenciaView.gerencia.nm_responsavel}" required="required"/>
-
-                        </div> 
-                        <div class="form-group col-xs-6 col-sm-12 col-md-2" style="padding-left: 0; padding-right: 0;">
-                            <label>&nbsp;</label>
-                            <br></br>
-                            <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{gerenciaView.salvaGerencia()}"/>
-
-                             <button class="btn btn-default">Atualizar </button>
-                        </div>
-
-                    </h:form>
-
-                    <h:form >
-                        <table id="tableGerencias" class="table table-condensed table-striped"> 
-                            <tr>
-                                <th>Nome gerência</th>
-                                <th>Nome responsável</th>
-                                <th>Excluir</th> 
-                            </tr>
-
-                            <ui:repeat var="elem" value="#{gerenciaView.listaGerencia}">
-
-                                <tr>                       
-                                    <td>
-
-                                        #{elem.ds_gerencia}
-                                    </td>
-                                    <td>
-
-                                        #{elem.nm_responsavel}
-                                    </td>
-                                    <td>
-                                        <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{gerenciaView.excluiGerencia(elem)}"/>                                
-                                    </td>
-                                </tr>
-                            </ui:repeat>
-                        </table>
-                    </h:form>
-
+            <h:form class="mx-auto">
+                <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                    <label for="nome">Nome gerência</label>
+                    <h:inputText class="form-control" a:placeholder="Desenvolvimento" id="nome" value="#{gerenciaView.gerencia.ds_gerencia}" required="required"/>
                 </div>
-            </ui:define>
+                <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                    <label for="exampleInputEmail1">Nome do responsável</label>
+                    <h:inputText class="form-control"  a:placeholder="Amanda Lima" id="exampleInputEmail1" value="#{gerenciaView.gerencia.nm_responsavel}" required="required"/>
 
-        </ui:composition>
+                </div> 
+                <div class="form-group col-xs-6 col-sm-12 col-md-2" style="padding-left: 0; padding-right: 0;">
+                    <label>&nbsp;</label>
+                    <br></br>
+                    <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{gerenciaView.salvaGerencia()}"/>
+
+                    <button class="btn btn-default">Atualizar </button>
+                </div>
+
+            </h:form>
+
+            <h:form >
+                <table id="tableGerencias" class="table table-condensed table-striped"> 
+
+                    <h:panelGroup id="toUpdate">
+                        <h:dataTable styleClass="table table-striped" value="#{gerenciaView.listaGerencia}" var="item" rows="15">
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:outputText value="#{item.ds_gerencia}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="Header" /></f:facet>
+                                <h:outputText value="#{item.nm_responsavel}" /> 
+                            </h:column>
+                            <h:column>
+                                <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{gerenciaView.excluiGerencia(item)}"/>                                
+
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>       
+                </table>
+            </h:form>
+
+        </div>
     </h:body>
 
 

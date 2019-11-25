@@ -48,6 +48,23 @@ public class Utils {
 
     }
 
+    public static FirebaseDatabase getIstancia() {
+        FirebaseDatabase database = null;
+        try {
+            database = FirebaseDatabase.getInstance();
+            return database;
+        } catch (Exception ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            try {
+                configuraInstancia();
+            } catch (IOException ex1) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+        return getIstancia();
+    }
+
     public static void enviaMensagem(String gerencia, Mensagem msg) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         msg.setDt_atualizacao(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
