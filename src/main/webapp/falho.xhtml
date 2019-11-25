@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
+ 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -19,18 +18,8 @@
     <h:body style="padding-top: 60px; background-color: #add;">
         <b:container>
             <h:form styleClass="form-signin" prependId="false">
-                <h2 class="form-signin-heading">Favor fazer login</h2>
-                <b:inputText id="email" value="#{usuarioLoginView.usuarioQueLoga.ds_login}"  placeholder="Login" >
-                    <f:facet name="prepend">
-                        <b:icon name="user" />
-                    </f:facet>
-                </b:inputText>
-                <b:inputText id="password" value="#{usuarioLoginView.usuarioQueLoga.ds_senha}"  placeholder="Senha" type="password">
-                    <f:facet name="prepend">
-                        <b:iconAwesome name="key" />
-                    </f:facet>
-                </b:inputText>
-                <b:commandButton look="primary btn-block" action="#{usuarioLoginView.login()}" value="Logar" icon="log-in" size="lg"/>
+                Login ou senha incorretos... 
+                <b:commandButton look="primary btn-block" action="index.jsf" value="Logar" icon="log-in" size="lg"/>
             </h:form>
         </b:container>
         <h:inputHidden value="#{genericView.valor}" /> 

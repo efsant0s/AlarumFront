@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
 
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -29,139 +30,132 @@
     <h:head>
         <title>Controle de mensagem</title>
     </h:head>
-    <h:body>        
-        <ui:composition template="layout.xhtml">
-            <ui:define name="content">
-                <div class="container">
-                    <div class="page-header">
-                        <h1>Lista de todos os usuários </h1>
-                        <h:commandButton class="btn btn-default" value="Enviar mensagem para todos" type="button" onclick="PF('dlg3').show();" /> 
-
-                    </div>
-
-                    <h:form >
+    <h:body>       
+        <h:inputHidden value="#{genericView.valor}" />      
 
 
+        <b:container fluid="true">
+            <b:row>
+                <b:column col-sm="3" col-md="2" styleClass="sidebar">
+                    <b:listLinks>
+                        <b:image value="https://s1.logaster.com/static/v3/img/products/logo.webp" />
+                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" active="true"/>
+                        <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários" />
+                        <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" />
+                        <b:navLink href="CadastroGerencia.jsf" value="Cadastro de gerências" />
+                    </b:listLinks>
+
+                </b:column>
+            </b:row>
+        </b:container>
+        <div class="container">
+            <div class="page-header">
+                <h1>Lista de todos os usuários </h1>
+                <h:commandButton class="btn btn-default" value="Enviar mensagem para todos" type="button" onclick="PF('dlg3').show();" /> 
+
+            </div>
+
+            <h:form >
+                <table id="tableUsuarios" class="table table-condensed table-striped"> 
+                    <h:panelGroup id="toUpdate">
                         <ui:repeat var="elem" value="#{envioTudoView.listaGerencia}">
-                            <table id="tableUsuarios" class="table table-condensed table-striped"> 
-                                <div class="table-tittle">
-                                    <h4>#{elem}<p:commandButton  class="btn btn-default" value="Enviar mensagem" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
-                                        <button class="btn btn-default">Atualizar </button></h4> 
-                                </div>
-                                <p:separator />
-                                <tr>
-                                    <th> Nome</th>
-                                    <th> Nome de usuário</th>
-                                    <th> Última sincronização</th>
-                                    <th> Última confirmação</th>
-                                    <th> Sistema operacional</th>
-                                    <th> Ip computador</th>
-                                    <th> PC Nome</th>
-                                </tr>
-                                <ui:repeat var="user" value="#{envioTudoView.getListaUsuario(elem)}">
-
-                                    <tr>                       
-                                        <td>
-                                            #{user.nm_apelido}
-                                        </td>
-                                        <td>
-
-                                            #{user.nm_usuario}
-                                        </td>
-                                        <td>
-
-                                            #{user.dt_atualizacao}
-                                        </td>
-                                        <td>
-
-                                            #{user.dt_confirmacao}
-                                        </td>
-                                        <td>
-
-                                            #{user.ds_os_nome}
-                                        </td>
-                                        <td>
-
-                                            #{user.ds_pc_ip}
-                                        </td>
-                                        <td>
-
-                                            #{user.ds_pc_nome}
-                                        </td> 
-                                    </tr>
-                                </ui:repeat>
-                            </table>
+                            <div class="table-tittle">
+                                <h4>#{elem}<p:commandButton  class="btn btn-default" value="Enviar mensagem" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
+                                    <button class="btn btn-default">Atualizar </button></h4> 
+                            </div>
+                            <p:separator /> 
+                            <h:dataTable styleClass="table table-striped"  value="#{envioTudoView.getListaUsuario(elem)}" var="user" rows="15">
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                    <h:outputText value="#{user.nm_apelido}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                    <h:outputText value="#{user.nm_usuario}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                    <h:outputText value="#{user.dt_atualizacao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                    <h:outputText value="#{user.dt_confirmacao}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                    <h:outputText value="#{user.ds_os_nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                    <h:outputText value="#{user.ds_pc_ip}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                    <h:outputText value="#{user.ds_pc_nome}" />
+                                </h:column> 
+                            </h:dataTable>
                         </ui:repeat>
-                    </h:form>
+                    </h:panelGroup>
+                </table>
+            </h:form>
 
-                </div>
-                <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg3"  >
-                    <h:form >
-                        <table id="tableMensagems" class="table table-condensed table-striped"> 
-                            <tr>
-                                <th>Tipo mensagem</th>
-                                <th>Título</th>
-                                <th>Mensagem</th>
-                                <th>Enviar</th> 
-                            </tr>
+        </div>
+        <!-- Caixa de dialogo pra mandar mensagem para todos-->
+        <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg3"  >
+            <h:form >
+                <table id="tableMensagems" class="table table-condensed table-striped"> 
+                    <h:panelGroup id="toUpdate">
+                        <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
 
-                            <ui:repeat var="elem" value="#{mensagemView.listaMensagem}">
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:outputText value="#{elem.ie_tipo}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:outputText value="#{elem.ds_titulo}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:outputText value=" #{elem.ds_mensagem}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:commandButton  class="btn btn-default" value="Enviar!"   actionListener="#{envioTudoView.enviaMensagemTodos(elem)}"/>   
+                            </h:column>  
+                        </h:dataTable> 
+                    </h:panelGroup>
+                </table>
+            </h:form>
+        </p:dialog> 
+        <!-- Caixa de dialogo pra mandar mensagem para grupo-->
+        <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg2"  >
+            <h:form >
+                <table id="tableMensagems" class="table table-condensed table-striped"> 
+                    <h:panelGroup id="toUpdate">
+                        <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
 
-                                <tr>                       
-                                    <td>
-                                        #{elem.ie_tipo}
-                                    </td>
-                                    <td>
-
-                                        #{elem.ds_titulo}
-                                    </td>
-                                    <td>
-
-                                        #{elem.ds_mensagem}
-                                    </td> 
-                                    <td>
-                                        <h:commandButton  class="btn btn-default" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemTodos(elem)}"/>                                
-                                    </td>
-                                </tr>
-                            </ui:repeat>
-                        </table>    
-
-                    </h:form>
-                </p:dialog> 
-                <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg2"  >
-                    <h:form >
-                        <table id="tableMensagems" class="table table-condensed table-striped"> 
-                            <tr>
-                                <th>Tipo mensagem</th>
-                                <th>Título</th>
-                                <th>Mensagem</th>
-                                <th>Enviar</th> 
-                            </tr>
-
-                            <ui:repeat var="elem" value="#{mensagemView.listaMensagem}">
-
-                                <tr>                       
-                                    <td>
-                                        #{elem.ie_tipo}
-                                    </td>
-                                    <td>
-
-                                        #{elem.ds_titulo}
-                                    </td>
-                                    <td>
-
-                                        #{elem.ds_mensagem}
-                                    </td> 
-                                    <td>
-                                        <h:commandButton  class="btn btn-default" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemGrupo(elem)}"/>                                
-                                    </td>
-                                </tr>
-                            </ui:repeat>
-                        </table>
-                    </h:form>
-                </p:dialog> 
-            </ui:define>  
-        </ui:composition>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:outputText value="#{elem.ie_tipo}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:outputText value="#{elem.ds_titulo}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:outputText value=" #{elem.ds_mensagem}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <h:commandButton  class="btn btn-default" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemGrupo(elem)}"/>   
+                            </h:column>  
+                        </h:dataTable> 
+                    </h:panelGroup>
+                </table>
+            </h:form>
+        </p:dialog> 
     </h:body>
 
 

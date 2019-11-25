@@ -26,27 +26,54 @@ import javax.servlet.ServletException;
 @SessionScoped
 public class UsuarioLoginView {
 
-    private UsuarioLoginDao usuarioLoginDao = new UsuarioLoginDao(); 
+    private UsuarioLoginDao usuarioLoginDao = new UsuarioLoginDao();
+    public static boolean isLoggedIn = false;
+
+    private UsuarioLogin usuarioQueLoga = new UsuarioLogin();
     private UsuarioLogin usuario = new UsuarioLogin();
+
+    public UsuarioLoginDao getUsuarioLoginDao() {
+        return usuarioLoginDao;
+    }
+
+    public void setUsuarioLoginDao(UsuarioLoginDao usuarioLoginDao) {
+        this.usuarioLoginDao = usuarioLoginDao;
+    }
+
+    public static boolean isIsLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public static void setIsLoggedIn(boolean isLoggedIn) {
+        UsuarioLoginView.isLoggedIn = isLoggedIn;
+    }
+
+    public UsuarioLogin getUsuarioQueLoga() {
+        return usuarioQueLoga;
+    }
+
+    public void setUsuarioQueLoga(UsuarioLogin usuarioQueLoga) {
+        this.usuarioQueLoga = usuarioQueLoga;
+    }
+
+   
 
     public void excluiUsuario(UsuarioLogin usuario) {
         usuarioLoginDao.excluir(usuario);
     }
 
     public void salvaUsuario(UsuarioLogin usuario) {
-        usuarioLoginDao.inserir(usuario); 
+        usuarioLoginDao.inserir(usuario);
     }
 
     public UsuarioLoginView() {
-        try { 
+        try {
             usuarioLoginDao.lista();
         } catch (Exception ex) {
             Logger.getLogger(UsuarioLoginView.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
     }
-
-  
 
     public Map<String, UsuarioLogin> getMapUsuarios() {
         return usuarioLoginDao.getListaUsuario();
@@ -66,6 +93,30 @@ public class UsuarioLoginView {
 
     public void salvaUsuario() throws ServletException {
         usuarioLoginDao.inserir(usuario);
-        usuario = new UsuarioLogin(); 
+        usuario = new UsuarioLogin();
+    }
+
+    public String login() throws InterruptedException, IOException {
+       if(this.login(usuarioQueLoga.getDs_login(), usuarioQueLoga.getDs_senha())){
+           return "EnvioMensagemGrupo";
+       }else{
+           return "falho";
+       }
+    }
+
+    private boolean login(final String login, final String senha) throws InterruptedException, IOException {
+        if(login == null || senha == null){
+            return false;
+        }
+        Map<String, UsuarioLogin> listaUsuario = getMapUsuarios();
+        if (listaUsuario.containsKey(login)) {
+            for (Map.Entry<String, UsuarioLogin> entrySet : listaUsuario.entrySet()) {
+                if (entrySet.getKey().equals(login) && entrySet.getValue() != null && (entrySet.getValue().getDs_senha().equals(senha)
+                        || entrySet.getValue().getDs_senha().equals(Utils.md5(senha))) || entrySet.getValue().getDs_senha().equals(Utils.md5(Utils.md5(senha)))) {
+                    return true;
+                };
+            }
+        }
+        return false;
     }
 }
