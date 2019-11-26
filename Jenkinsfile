@@ -39,6 +39,7 @@ pipeline {
 			steps {
 				//sh 'sudo rm -f --recursive -r /var/lib/jenkins/workspace/trabalho-sidnei_master'
 				//sh 'rm -f /home/senai/docker/AlarumAdmin-1.0-SNAPSHOT.war'
+				ls
 			}
 		}
     }
