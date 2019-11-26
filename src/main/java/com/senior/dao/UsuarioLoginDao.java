@@ -72,26 +72,28 @@ public class UsuarioLoginDao implements Repository {
 
     @Override
     public void lista() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRootRef = database.getReference();
-        DatabaseReference userRef = myRootRef.child("usuarios");
-        final Map listaUsuarios = new HashMap();
+        FirebaseDatabase database = FirebaseDatabase.getInstance(); //Conectar ao banco.
+        DatabaseReference myRootRef = database.getReference(); //Pega a raiz do banco.
+        DatabaseReference userRef = myRootRef.child("usuarios"); //Pega a raiz usuário
+        final Map listaUsuarios = new HashMap(); // Cria uma lista temporária
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
+                try {//Método para pegar os dados do banco e transformar em uma classe de usuário.
                     Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
                     while (dataSnapshots.hasNext()) {
                         DataSnapshot dataSnapshotChild = dataSnapshots.next();
                         UsuarioLogin fcmUser = dataSnapshotChild.getValue(UsuarioLogin.class);
                         listaUsuarios.put(fcmUser.getDs_login(), fcmUser);
                     }
+                    //coloca os valores atualizados na lista que é utilizado em consultas
                     listaUsuario = listaUsuarios;
 
                 } catch (Exception e) {
                     //Log the exception and the key 
                     System.out.println(dataSnapshot.getKey());
                     e.printStackTrace();
+                    //tratamento de expections
                 }
             }
 
