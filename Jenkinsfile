@@ -3,24 +3,26 @@ pipeline {
  stages {
 	stage('Build Imagem Docker! ') {
 		steps {
-			echo 'Etapa 1'
+			sh 'cp /var/lib/jenkins/workspace/AlarumFront/target/AlarumAdmin-1.0-SNAPSHOT.war /home/senai/docker/'
+			sh 'docker image build -t AlarumFront/tomcat /home/senai/docker/'
 		}
 	}
 	stage('Remove') {
 		steps {
 			//sh 'docker container stop trabalho-sidnei'
 			echo 'Etapa 2'
+			sh 'docker container rm -f $(docker container ls -aq)'
 		}
 	}
 	stage('Executar') {
 		steps {
-			echo 'Etapa 3'
+			sh 'docker container run -d --name AlarumFront --publish 8081:8080 -it AlarumFront/tomcat'
 		}
 	}
 	stage('Remover Workspace') {
 		steps {
 			//sh 'sudo rm -f --recursive -r /var/lib/jenkins/workspace/trabalho-sidnei_master'
-			echo 'Etapa 4'
+			sh 'rm -f /home/senai/docker/AlarumAdmin-1.0-SNAPSHOT.war'
 		}
 	}
  }
