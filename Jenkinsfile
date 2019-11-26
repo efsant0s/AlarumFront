@@ -21,7 +21,7 @@ pipeline {
 		stage('Build Imagem Docker! ') {
 			steps {
 				sh 'cp /root/.jenkins/workspace/alarum_master/target/AlarumAdmin-1.0-SNAPSHOT.war /home/senai/docker/'
-				sh 'docker image build -t alarum_4.0/tomcat /home/senai/docker/'
+				sh 'docker image build -t alarum_master/tomcat /home/senai/docker/'
 			}
 		}
 		stage('Remove Container ') {
@@ -32,7 +32,7 @@ pipeline {
 		}
 		stage('Executar') {
 			steps {
-				sh 'docker container run -d --name trabalho-sidnei --publish 8081:8080 trabalho-sidnei/tomcat'
+				sh 'docker container run -d --name alarum_master --publish 8081:8080 alarum_master/tomcat'
 			}
 		}
 		stage('Remover War pasta Docker ') {
