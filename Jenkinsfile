@@ -22,11 +22,24 @@ pipeline {
 			steps {
 				sh 'cp /root/.jenkins/workspace/alarum_4.0/target/AlarumAdmin-1.0-SNAPSHOT.war /home/senai/docker/'
 				sh 'docker image build -t alarum_4.0/tomcat /home/senai/docker/'
-				cd 'docker-tomcat-tutorial'
-				sh 'docker build -t mywebapp .'
-				sh 'docker run -p 80:8080 mywebapp'
 			}
 		}
-		 
+		stage('Remove Container ') {
+			steps {
+				//sh 'docker container stop trabalho-sidnei'
+				sh 'docker container rm -f $(docker container ls -aq)'
+			}
+		}
+		stage('Executar') {
+			steps {
+				sh 'docker container run -d --name trabalho-sidnei --publish 8081:8080 trabalho-sidnei/tomcat'
+			}
+		}
+		stage('Remover War pasta Docker ') {
+			steps {
+				//sh 'sudo rm -f --recursive -r /var/lib/jenkins/workspace/trabalho-sidnei_master'
+				sh 'rm -f /home/senai/docker/AlarumAdmin-1.0-SNAPSHOT.war'
+			}
+		}
     }
 }
