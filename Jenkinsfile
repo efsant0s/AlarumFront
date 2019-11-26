@@ -20,7 +20,7 @@ pipeline {
         }
 		stage('Build Imagem Docker! ') {
 			steps {
-				sh 'cp /root/.jenkins/workspace/alarum_4.0/target/AlarumAdmin-1.0-SNAPSHOT.war /home/senai/docker/'
+				sh 'cp /root/.jenkins/workspace/alarum_master/target/AlarumAdmin-1.0-SNAPSHOT.war /home/senai/docker/'
 				sh 'docker image build -t alarum_4.0/tomcat /home/senai/docker/'
 			}
 		}
