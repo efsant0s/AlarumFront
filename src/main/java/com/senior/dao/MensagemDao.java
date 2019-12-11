@@ -9,14 +9,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.senior.model.Mensagem;
 import com.senior.utils.Utils;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,7 +59,7 @@ public class MensagemDao implements Repository {
     @Override
     public void excluir(Object o) {
         Mensagem mensag = (Mensagem) o;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         DatabaseReference myRootRef = database.getReference();
         listaMensagem.remove(mensag.getIe_tipo());
         myRootRef.child("mensagens").setValueAsync(listaMensagem);
@@ -71,7 +68,7 @@ public class MensagemDao implements Repository {
 
     @Override
     public void lista() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         DatabaseReference myRootRef = database.getReference();
         DatabaseReference mensagRef = myRootRef.child("mensagens");
         final Map listaMensagems = new HashMap();

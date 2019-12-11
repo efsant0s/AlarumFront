@@ -9,14 +9,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.senior.model.UsuarioLogin;
 import com.senior.utils.Utils;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +28,7 @@ public class UsuarioLoginDao implements Repository {
     @Override
     public void inserir(Object o) {
         lista();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         UsuarioLogin user = (UsuarioLogin) o;
         user.setDs_senha(Utils.md5(user.getDs_senha()));
         listaUsuario.put(user.getDs_login(), user);
@@ -63,7 +60,7 @@ public class UsuarioLoginDao implements Repository {
     @Override
     public void excluir(Object o) {
         UsuarioLogin user = (UsuarioLogin) o;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         DatabaseReference myRootRef = database.getReference();
         listaUsuario.remove(user.getDs_login());
         myRootRef.child("usuarios").setValueAsync(listaUsuario);
@@ -72,7 +69,7 @@ public class UsuarioLoginDao implements Repository {
 
     @Override
     public void lista() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance(); //Conectar ao banco.
+        FirebaseDatabase database = Utils.getIstancia(); //Conectar ao banco.
         DatabaseReference myRootRef = database.getReference(); //Pega a raiz do banco.
         DatabaseReference userRef = myRootRef.child("usuarios"); //Pega a raiz usuário
         final Map listaUsuarios = new HashMap(); // Cria uma lista temporária

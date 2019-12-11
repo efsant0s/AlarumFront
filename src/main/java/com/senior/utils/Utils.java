@@ -11,7 +11,6 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.senior.model.Mensagem;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,7 +64,7 @@ public class Utils {
     }
 
     public static void enviaMensagem(String gerencia, Mensagem msg) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         msg.setDt_atualizacao(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
         DatabaseReference msgRef = database.getReference().child("banco").child(gerencia).child("mensagem");
         msgRef.setValueAsync(msg);

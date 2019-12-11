@@ -30,44 +30,51 @@
     <h:head>
         <title>Controle de gerências</title>
     </h:head>
+      <style>
+        .sidebar{
+            padding: 1%; background-color: #f5f5f5; border-radius: 10px; height: 720px ; margin-left: -1.5%;
+        }
+    </style>
     <h:body> 
         <h:inputHidden value="#{genericView.valor}" />     
-        <b:container fluid="true">
-            <b:row>
-                <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
-                        <b:image value="https://s1.logaster.com/static/v3/img/products/logo.webp" />
-                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" active="true"/>
+        <b:container fluid="true" >
+            
+                <b:column col-xs="6" col-md="2" styleClass="sidebar" style="text-align:center" >
+                        <b:pillLinks style="text-align: center ; font-size: medium"   >
+                      <b:image value="https://i.ibb.co/1X43HjV/alarum-logo.png"  style="margin: 0 auto" />
+                        <br/>    <br/>
+                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" />
                         <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários" />
                         <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" />
-                        <b:navLink href="CadastroGerencia.jsf" value="Cadastro de gerências" />
-                    </b:listLinks>
-
+                        <b:navLink href="CadastroGerencia.jsf" value="Cadastro Departamento" active="true" />
+                  
+                        </b:pillLinks>
+                     <br/>  <br/> 
+                    <b:button look="danger" value="Sair" href="index.jsf" size="md" icon="log-out"/>
+          
                 </b:column>
-            </b:row>
-        </b:container>
-        <div class="container">
-            <div class="page-header">
-                <h1>Cadastro de gerências</h1>
-            </div>
-
-
+            <h1 style="margin-left: 16%">Cadastro de Departamento</h1>
+      
+      
+     
+        
+ <b:column col-xs="6" col-md="10" col-lg="10" >
             <h:form class="mx-auto">
                 <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                    <label for="nome">Nome gerência</label>
+                    <label for="nome">Departamento</label>
                     <h:inputText class="form-control" a:placeholder="Desenvolvimento" id="nome" value="#{gerenciaView.gerencia.ds_gerencia}" required="required"/>
                 </div>
                 <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                    <label for="exampleInputEmail1">Nome do responsável</label>
+                    <label for="exampleInputEmail1">Responsável departamento</label>
                     <h:inputText class="form-control"  a:placeholder="Amanda Lima" id="exampleInputEmail1" value="#{gerenciaView.gerencia.nm_responsavel}" required="required"/>
 
                 </div> 
                 <div class="form-group col-xs-6 col-sm-12 col-md-2" style="padding-left: 0; padding-right: 0;">
                     <label>&nbsp;</label>
                     <br></br>
-                    <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{gerenciaView.salvaGerencia()}"/>
+                    <b:commandButton look="primary" value ="Salvar" actionListener="#{gerenciaView.salvaGerencia()}"/>
 
-                    <button class="btn btn-default">Atualizar </button>
+                            <b:commandButton look="success" icon="refresh" style="margin-left:2%"/> 
                 </div>
 
             </h:form>
@@ -78,15 +85,15 @@
                     <h:panelGroup id="toUpdate">
                         <h:dataTable styleClass="table table-striped" value="#{gerenciaView.listaGerencia}" var="item" rows="15">
                             <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Departamento" /></f:facet>
                                 <h:outputText value="#{item.ds_gerencia}" />
                             </h:column>
                             <h:column>
-                                <f:facet name="header"><h:outputText value="Header" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Responsável departamento" /></f:facet>
                                 <h:outputText value="#{item.nm_responsavel}" /> 
                             </h:column>
                             <h:column>
-                                <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{gerenciaView.excluiGerencia(item)}"/>                                
+                                <b:commandButton look="danger" value="Excluir"  actionListener="#{gerenciaView.excluiGerencia(item)}"/>                                
 
                             </h:column>
                         </h:dataTable>
@@ -94,7 +101,8 @@
                 </table>
             </h:form>
 
-        </div>
+ </b:column>
+        </b:container>
     </h:body>
 
 

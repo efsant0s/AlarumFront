@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.senior.model.Gerencia;
+import com.senior.utils.Utils;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class GerenciaDao implements Repository {
     @Override
     public void inserir(Object o) {
         lista();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         Gerencia geren = (Gerencia) o;
         listaGerencia.put(geren.getDs_gerencia(), geren);
         DatabaseReference myRootRef = database.getReference();
@@ -58,7 +59,7 @@ public class GerenciaDao implements Repository {
     @Override
     public void excluir(Object o) {
         Gerencia geren = (Gerencia) o;
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         DatabaseReference myRootRef = database.getReference();
         listaGerencia.remove(geren.getDs_gerencia());
         myRootRef.child("gerencias").setValueAsync(listaGerencia);
@@ -67,7 +68,7 @@ public class GerenciaDao implements Repository {
 
     @Override
     public void lista() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         DatabaseReference myRootRef = database.getReference();
         DatabaseReference gerenRef = myRootRef.child("gerencias");
         final Map listaUsuarios = new HashMap();

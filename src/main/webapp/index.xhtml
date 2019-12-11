@@ -6,20 +6,28 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Sign In Template for BootsFaces</title>
-        <meta name="author" content="Riccardo Massera"></meta>
+        <title>Login Alarum</title>
+    
         <style type="text/css">
             .form-signin {
                 margin: 0 auto;
                 max-width: 330px;
                 padding: 15px;
             }
+            .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  
+}
         </style>
     </h:head>
-    <h:body style="padding-top: 60px; background-color: #add;">
-        <b:container>
-            <h:form styleClass="form-signin" prependId="false">
-                <h2 class="form-signin-heading">Favor fazer login</h2>
+    <h:body style="padding-top: 60px; background-color:#f5f5f5">
+        <b:container styleClass="form-signin">
+            <b:image value="https://i.ibb.co/1X43HjV/alarum-logo.png" styleClass="center"  />
+            <h:form  prependId="false" style="padding:5%">
+           
                 <b:inputText id="email" value="#{usuarioLoginView.usuarioQueLoga.ds_login}"  placeholder="Login" >
                     <f:facet name="prepend">
                         <b:icon name="user" />
@@ -30,9 +38,11 @@
                         <b:iconAwesome name="key" />
                     </f:facet>
                 </b:inputText>
-                <b:commandButton look="primary btn-block" action="#{usuarioLoginView.login()}" value="Logar" icon="log-in" size="lg"/>
+                <b:commandButton look="primary btn-block" action="#{usuarioLoginView.login()}" value="Fazer login" size="lg"/>
             </h:form>
+           
         </b:container>
+        
         <h:inputHidden value="#{genericView.valor}" /> 
     </h:body>
 </html>

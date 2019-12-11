@@ -30,49 +30,55 @@
     <h:head>
         <title>Controle de mensagem</title>
     </h:head>
+    <style>
+        .sidebar{
+            padding: 1%; background-color: #f5f5f5; border-radius: 10px; height: 720px ; margin-left: -1.5%;
+        }
+    </style>
     <h:body>
-        <h:inputHidden value="#{genericView.valor}" />             
-        <b:container fluid="true">
-            <b:row>
-                <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
-                        <b:image value="https://s1.logaster.com/static/v3/img/products/logo.webp" />
-                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" active="true"/>
+        <h:inputHidden value="#{genericView.valor}" />
+        
+        <b:container fluid="true" >
+            
+            <b:column col-xs="6" col-md="2" styleClass="sidebar" style="text-align:center">
+                <b:pillLinks style="text-align: center ; font-size: medium"   >
+                        <b:image value="https://i.ibb.co/1X43HjV/alarum-logo.png"  style="margin: 0 auto" />
+                        <br/>    <br/>    
+                        <b:navLink  href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" />
                         <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários" />
-                        <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" />
-                        <b:navLink href="CadastroGerencia.jsf" value="Cadastro de gerências" />
-                    </b:listLinks>
-
+                        <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" active="true" />
+                        <b:navLink href="CadastroGerencia.jsf" value="Cadastro Departamento" />
+                    </b:pillLinks>
+ <br/>  <br/> 
+                    <b:button look="danger" value="Sair" href="index.jsf" size="md" icon="log-out"/>
+          
                 </b:column>
-            </b:row>
-        </b:container>
-        <div class="container">
-            <div class="page-header">
-                <h1>Cadastro de mensagem</h1>
-            </div>
+           
+        
+                <h1 span="6" style="margin-left: 16%" >Cadastro de mensagem</h1>
+           
 
-
+        <b:column col-xs="6" col-md="10" col-lg="10" >
             <h:form class="mx-auto">
                 <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                    <label for="nome">Tipo mensagem</label>
-                    <h:inputText class="form-control" a:placeholder="Alerta incêndio" id="nome" value="#{mensagemView.mensagem.ie_tipo}" required="required"/>
+                    <label for="nome">Tipo de mensagem</label>
+                    <h:inputText class="form-control" a:placeholder="Incêndio, Terremoto..." id="nome" value="#{mensagemView.mensagem.ie_tipo}" required="required"/>
                 </div>
                 <div class="form-group col-xs-12 col-sm-6 col-md-3">
                     <label for="exampleInputEmail1">Título da mensagem</label>
-                    <h:inputText class="form-control"  a:placeholder="Aviso mensagem" id="exampleInputEmail1" value="#{mensagemView.mensagem.ds_titulo}" required="required"/>
+                    <h:inputText class="form-control"  a:placeholder="Alerta de Incêndio" id="exampleInputEmail1" value="#{mensagemView.mensagem.ds_titulo}" required="required"/>
 
                 </div> 
                 <div class="form-group col-xs-12 col-sm-6 col-md-3">
-                    <label for="mensagem">Text mensagem</label>
-                    <h:inputText class="form-control" a:placeholder="AVISO, FAVOR SAIR IMEDIATAMENTE" id="mensagem" value="#{mensagemView.mensagem.ds_mensagem}" required="required"/>
+                    <label for="mensagem">Texto da mensagem</label>
+                    <h:inputText class="form-control" a:placeholder="Evacuar o local imediatamente" id="mensagem" value="#{mensagemView.mensagem.ds_mensagem}" required="required"/>
                 </div>
 
                 <div class="form-group col-xs-6 col-sm-12 col-md-2" style="padding-left: 0; padding-right: 0;">
                     <label>&nbsp;</label>
                     <br></br>
-                    <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{mensagemView.salvaMensagem()}"/>
-
-                    <button class="btn btn-default">Atualizar</button>
+                    <b:commandButton look="primary" value ="Salvar" actionListener="#{mensagemView.salvaMensagem()}"/>
+                        <b:commandButton look="success" icon="refresh" style="margin-left:2%"/>   
                 </div>
 
             </h:form>
@@ -82,19 +88,19 @@
                     <h:panelGroup id="toUpdate">
                         <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="item" rows="15">
                             <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Tipo de Mensagem" /></f:facet>
                                 <h:outputText value="#{item.ie_tipo}" />
                             </h:column>
                             <h:column>
-                                <f:facet name="header"><h:outputText value="Header" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Título da Mensagem" /></f:facet>
                                 <h:outputText value="#{item.ds_titulo}" /> 
                             </h:column>
                             <h:column>
-                                <f:facet name="header"><h:outputText value="Header" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Texto da Mensagem" /></f:facet>
                                 <h:outputText value="#{item.ds_mensagem}" /> 
                             </h:column>
                             <h:column>
-                                <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{mensagemView.excluiMensagem(item)}"/>                                
+                                <b:commandButton  look="danger" value="Excluir"  actionListener="#{mensagemView.excluiMensagem(item)}"/>                                
 
                             </h:column>
                         </h:dataTable>
@@ -102,7 +108,8 @@
                 </table>
             </h:form>
 
-        </div>
+        </b:column>
+        </b:container>
     </h:body>
 
 

@@ -26,91 +26,93 @@
           integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css"
           integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous"/>
+    
 
-    <h:head>
-        <title>Controle de usuários</title>
-    </h:head>
     <h:body> 
-        <h:inputHidden value="#{genericView.valor}" />     
-      
-
-
-      
-        <b:container fluid="true">
-            <b:row>
-                <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
-                        <b:image value="https://s1.logaster.com/static/v3/img/products/logo.webp" />
-                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" active="true"/>
-                        <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários" />
+           <style>
+        .sidebar{
+            padding: 1%; background-color: #f5f5f5; border-radius: 10px; height: 720px ; margin-left: -1.5%;
+        }
+    </style>
+ 
+        <b:container fluid="true"  >
+                <b:column col-xs="6" col-md="2" styleClass="sidebar" style="text-align:center">
+                                      
+                    <b:pillLinks style="text-align: center ; font-size: medium"   >
+                      <b:image value="https://i.ibb.co/1X43HjV/alarum-logo.png"  style="margin: 0 auto" />
+                        <br/>    <br/>    
+                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem"/>
+                        <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários" active="true" />
                         <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" />
                         <b:navLink href="CadastroGerencia.jsf" value="Cadastro de gerências" />
-                    </b:listLinks>
+                        
+                    </b:pillLinks>
+                     <br/>  <br/> 
+                    <b:button look="danger" value="Sair" href="index.jsf" size="md" icon="log-out"/>
+          
 
                 </b:column>
-            </b:row>
-        </b:container>
-
-        <div class="container">
-            <div class="page-header">
-                <h1>Cadastro de Usuários</h1>
-            </div>
+            
+        
+        
+            <h1 style="margin-left: 16%">Cadastro de Usuários</h1>
 
 
+        <b:column col-xs="6" col-md="10" col-lg="10" >
             <h:form class="mx-auto">
                 <div class="form-group col-xs-12 col-sm-6 col-md-2">
                     <label for="nome">Login</label>
-                    <h:inputText class="form-control" a:placeholder="efsantos" id="nome" value="#{usuarioLoginView.usuario.ds_login}" required="required"/>
+                    <h:inputText class="form-control" a:placeholder="joaosilva" id="nome" value="#{usuarioLoginView.usuario.ds_login}" required="required"/>
                 </div>
                 <div class="form-group col-xs-12 col-sm-6 col-md-2">
                     <label for="exampleInputEmail1">E-mail</label>
-                    <h:inputText class="form-control"  a:placeholder="eddu.felipe@gmail.com" id="exampleInputEmail1" value="#{usuarioLoginView.usuario.ds_email}" required="required"/>
+                    <h:inputText class="form-control"  a:placeholder="joaosilva@gmail.com" id="exampleInputEmail1" value="#{usuarioLoginView.usuario.ds_email}" required="required"/>
 
                 </div> 
-                <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                <div class="form-group col-xs-12 col-sm-6 col-md-2">
                     <label for="exampleInputEmail1">Senha</label>
                     <h:inputSecret id="tel" class="form-control" value="#{usuarioLoginView.usuario.ds_senha}" required="required"/>
                     <p:watermark for="tel" value="**********" id="watermark4" />
                 </div>
                 <div class="form-group col-xs-12 col-sm-6 col-md-2">
-                    <label for="ieAdmin">Administrador</label><br/>
-                    <p:selectOneMenu id="ieAdmin" value="#{usuarioLoginView.usuario.ie_admin}" style="width:125px">
-                        <f:selectItem itemLabel="Não" itemValue="N" />
-                        <f:selectItem itemLabel="Sim" itemValue="S" />
-                    </p:selectOneMenu>
+                    <label for="ieAdmin">Tipo de Usuário</label><br/>
+                    <b:selectOneMenu id="ieAdmin" value="#{usuarioLoginView.usuario.ie_admin}" style="width:125px">
+                        <f:selectItem itemLabel="Usuário" itemValue="Usuári0" />
+                        <f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+                    </b:selectOneMenu>
                 </div>
                 <div class="form-group col-xs-6 col-sm-12 col-md-2" style="padding-left: 0; padding-right: 0;">
                     <label>&nbsp;</label>
                     <br></br>
-                    <h:commandButton class="btn btn-default" value ="Salvar" actionListener="#{usuarioLoginView.salvaUsuario()}"/>
-                    <button class="btn btn-default">Atualizar </button>
+                    <b:commandButton look="primary" value ="Salvar" actionListener="#{usuarioLoginView.salvaUsuario()}"/>
+                    <b:commandButton look="success" icon="refresh" style="margin-left:2%"/>
                 </div>
 
             </h:form>
-
+      
             <h:form >
                 <table id="tableUsuarios" class="table table-condensed table-striped"> 
 
                     <h:panelGroup id="toUpdate">
                         <h:dataTable styleClass="table table-striped" value="#{usuarioLoginView.listaUsuario}" var="item" rows="15">
                             <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Login" /></f:facet>
                                 <h:outputText value="#{item.ds_login}" />
                             </h:column>
                             <h:column>
-                                <f:facet name="header"><h:outputText value="Header" /></f:facet>
+                                <f:facet name="header"><h:outputText value="E-mail" /></f:facet>
                                 <h:outputText value="#{item.ds_email}" />
                             </h:column>
                             <h:column>
-                                <f:facet name="header"><h:outputText value="Header" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Senha" /></f:facet>
                                 <h:outputText value="#{item.ds_senha}" />
                             </h:column>
                             <h:column>
-                                <f:facet name="header"><h:outputText value="Header" /></f:facet>
+                                <f:facet name="header"><h:outputText value="Tipo de Usuário" /></f:facet>
                                 <h:outputText value="#{item.ie_admin}" />
                             </h:column>
                             <h:column>
-                                <h:commandButton  class="btn btn-default" value="Excluir"  actionListener="#{usuarioLoginView.excluiUsuario(item)}"/>                                
+                                <b:commandButton  look="danger" value="Excluir"  actionListener="#{usuarioLoginView.excluiUsuario(item)}"/>                                
 
                             </h:column>
                         </h:dataTable>
@@ -118,7 +120,10 @@
                 </table>
             </h:form>
 
-        </div>
+        
+          </b:column>
+        </b:container>
+           
     </h:body>
 
 

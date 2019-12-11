@@ -7,8 +7,6 @@ package com.senior.view;
 
 import com.senior.dao.MensagemDao;
 import com.senior.model.Mensagem;
-import com.senior.utils.Utils;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
