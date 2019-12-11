@@ -7,11 +7,8 @@ package com.senior.view;
 
 import com.senior.dao.GerenciaDao;
 import com.senior.model.Gerencia;
-import com.senior.utils.Utils;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;

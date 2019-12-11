@@ -14,8 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 
 /**
@@ -56,8 +60,6 @@ public class UsuarioLoginView {
         this.usuarioQueLoga = usuarioQueLoga;
     }
 
-   
-
     public void excluiUsuario(UsuarioLogin usuario) {
         usuarioLoginDao.excluir(usuario);
     }
@@ -97,15 +99,24 @@ public class UsuarioLoginView {
     }
 
     public String login() throws InterruptedException, IOException {
-       if(this.login(usuarioQueLoga.getDs_login(), usuarioQueLoga.getDs_senha())){
-           return "EnvioMensagemGrupo";
-       }else{
-           return "falho";
-       }
+        if (this.login(usuarioQueLoga.getDs_login(), usuarioQueLoga.getDs_senha())) {
+            return "EnvioMensagemGrupo";
+        } else {
+            return "falho";
+        }
+    }
+
+    public void refresh() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Application application = context.getApplication();
+        ViewHandler viewHandler = application.getViewHandler();
+        UIViewRoot viewRoot = viewHandler.createView(context, context.getViewRoot().getViewId());
+        context.setViewRoot(viewRoot);
+        context.renderResponse();
     }
 
     private boolean login(final String login, final String senha) throws InterruptedException, IOException {
-        if(login == null || senha == null){
+        if (login == null || senha == null) {
             return false;
         }
         Map<String, UsuarioLogin> listaUsuario = getMapUsuarios();

@@ -30,132 +30,149 @@
     <h:head>
         <title>Controle de mensagem</title>
     </h:head>
+
+    <style>
+        .sidebar{
+            padding: 1%; background-color: #f5f5f5; border-radius: 10px; height: 720px ; margin-left: -1.5%;
+        }
+    </style>
     <h:body>       
         <h:inputHidden value="#{genericView.valor}" />      
 
 
         <b:container fluid="true">
-            <b:row>
-                <b:column col-sm="3" col-md="2" styleClass="sidebar">
-                    <b:listLinks>
-                        <b:image value="https://s1.logaster.com/static/v3/img/products/logo.webp" />
-                        <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" active="true"/>
-                        <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários" />
-                        <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" />
-                        <b:navLink href="CadastroGerencia.jsf" value="Cadastro de gerências" />
-                    </b:listLinks>
 
-                </b:column>
-            </b:row>
+            <b:column col-xs="6" col-md="2" styleClass="sidebar"  style="text-align: center" >
+
+                <b:pillLinks style="text-align: center ; font-size: medium"   >
+                    <b:image value="https://i.ibb.co/1X43HjV/alarum-logo.png"  style="margin: 0 auto" />
+                    <br/>    <br/>
+                    <b:navLink href="EnvioMensagemGrupo.jsf" value="Envio de mensagem" active="true"/>
+                    <b:navLink href="CadastroUsuario.jsf" value="Cadastro de usuários"  />
+                    <b:navLink href="CadastroMensagem.jsf" value="Cadastro de mensagens" />
+                    <b:navLink href="CadastroGerencia.jsf" value="Cadastro Departamento" />
+                </b:pillLinks>
+                <br/>  <br/> 
+                <b:button look="danger" value="Sair" href="index.jsf" size="md" icon="log-out"/>
+
+
+            </b:column>
+
+
+
+            <h1 span="6" style="margin-left: 16%">Envio de Mensagem</h1>
+
+
+            <b:column col-xs="6" col-md="10" col-lg="10" >
+
+                <b:commandButton look="primary" icon="send"   value="Enviar mensagem para todos" type="button" size="lg" onclick="PF('dlg3').show();" style="margin-top:1%;margin-bottom: 1%;"/> 
+
+
+
+                <h:form >
+                    <table id="tableUsuarios" class="table table-condensed table-striped"> 
+                        <h:panelGroup id="toUpdate">
+                            <ui:repeat var="elem" value="#{envioTudoView.listaGerencia}">
+                                <div class="table-title">
+                                    <h3> #{elem}
+                                        <b:commandButton  class="btn btn-primary" value="Enviar mensagem departamento" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
+                                        <b:commandButton look="success" icon="refresh" style="margin-left:0.5%"/></h3>
+                                </div> 
+                                <p:separator /> 
+                                <h:dataTable styleClass="table table-striped"  value="#{envioTudoView.getListaUsuario(elem)}" var="user" rows="15">
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="Login" /></f:facet>
+                                        <h:outputText value="#{user.nm_apelido}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="Nome do Computador" /></f:facet>
+                                        <h:outputText value="#{user.nm_usuario}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="Envio Mensagem" /></f:facet>
+                                        <h:outputText value="#{user.dt_atualizacao}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="Confirmação Mensagem" /></f:facet>
+                                        <h:outputText value="#{user.dt_confirmacao}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="SO" /></f:facet>
+                                        <h:outputText value="#{user.ds_os_nome}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="IP" /></f:facet>
+                                        <h:outputText value="#{user.ds_pc_ip}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="Nome do Computador" /></f:facet>
+                                        <h:outputText value="#{user.ds_pc_nome}" />
+                                    </h:column> 
+                                </h:dataTable>
+                            </ui:repeat>
+                        </h:panelGroup>
+                    </table>
+                </h:form>
+
+
+                <!-- Caixa de dialogo pra mandar mensagem para todos-->
+                <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg3"  >
+                    <h:form >
+                        <table id="tableMensagems" class="table table-condensed table-striped"> 
+                            <h:panelGroup id="toUpdate">
+                                <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
+
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <h:outputText value="#{elem.ie_tipo}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <h:outputText value="#{elem.ds_titulo}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <h:outputText value=" #{elem.ds_mensagem}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <h:commandButton  class="btn btn-default" value="Enviar!"   actionListener="#{envioTudoView.enviaMensagemTodos(elem)}"/>   
+                                    </h:column>  
+                                </h:dataTable> 
+                            </h:panelGroup>
+                        </table>
+                    </h:form>
+                </p:dialog> 
+                <!-- Caixa de dialogo pra mandar mensagem para grupo-->
+                <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg2"  >
+                    <h:form >
+                        <table id="tableMensagems" class="table table-condensed table-striped"> 
+                            <h:panelGroup id="toUpdate">
+                                <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
+
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <h:outputText value="#{elem.ie_tipo}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <h:outputText value="#{elem.ds_titulo}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <h:outputText value=" #{elem.ds_mensagem}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <b:commandButton  look="primary" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemGrupo(elem)}"/>   
+                                    </h:column>  
+                                </h:dataTable> 
+                            </h:panelGroup>
+                        </table>
+                    </h:form>
+                </p:dialog>
+            </b:column>
         </b:container>
-        <div class="container">
-            <div class="page-header">
-                <h1>Lista de todos os usuários </h1>
-                <h:commandButton class="btn btn-default" value="Enviar mensagem para todos" type="button" onclick="PF('dlg3').show();" /> 
-
-            </div>
-
-            <h:form >
-                <table id="tableUsuarios" class="table table-condensed table-striped"> 
-                    <h:panelGroup id="toUpdate">
-                        <ui:repeat var="elem" value="#{envioTudoView.listaGerencia}">
-                            <div class="table-tittle">
-                                <h4>#{elem}<p:commandButton  class="btn btn-default" value="Enviar mensagem" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
-                                    <button class="btn btn-default">Atualizar </button></h4> 
-                            </div>
-                            <p:separator /> 
-                            <h:dataTable styleClass="table table-striped"  value="#{envioTudoView.getListaUsuario(elem)}" var="user" rows="15">
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                    <h:outputText value="#{user.nm_apelido}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                    <h:outputText value="#{user.nm_usuario}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                    <h:outputText value="#{user.dt_atualizacao}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                    <h:outputText value="#{user.dt_confirmacao}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                    <h:outputText value="#{user.ds_os_nome}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                    <h:outputText value="#{user.ds_pc_ip}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                    <h:outputText value="#{user.ds_pc_nome}" />
-                                </h:column> 
-                            </h:dataTable>
-                        </ui:repeat>
-                    </h:panelGroup>
-                </table>
-            </h:form>
-
-        </div>
-        <!-- Caixa de dialogo pra mandar mensagem para todos-->
-        <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg3"  >
-            <h:form >
-                <table id="tableMensagems" class="table table-condensed table-striped"> 
-                    <h:panelGroup id="toUpdate">
-                        <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
-
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:outputText value="#{elem.ie_tipo}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:outputText value="#{elem.ds_titulo}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:outputText value=" #{elem.ds_mensagem}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:commandButton  class="btn btn-default" value="Enviar!"   actionListener="#{envioTudoView.enviaMensagemTodos(elem)}"/>   
-                            </h:column>  
-                        </h:dataTable> 
-                    </h:panelGroup>
-                </table>
-            </h:form>
-        </p:dialog> 
-        <!-- Caixa de dialogo pra mandar mensagem para grupo-->
-        <p:dialog header="Selecione a mensagem para enviar" showEffect="size" widgetVar="dlg2"  >
-            <h:form >
-                <table id="tableMensagems" class="table table-condensed table-striped"> 
-                    <h:panelGroup id="toUpdate">
-                        <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
-
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:outputText value="#{elem.ie_tipo}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:outputText value="#{elem.ds_titulo}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:outputText value=" #{elem.ds_mensagem}" />
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header"><h:outputText value="#" /></f:facet>
-                                <h:commandButton  class="btn btn-default" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemGrupo(elem)}"/>   
-                            </h:column>  
-                        </h:dataTable> 
-                    </h:panelGroup>
-                </table>
-            </h:form>
-        </p:dialog> 
     </h:body>
 
 

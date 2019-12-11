@@ -9,9 +9,7 @@ import com.senior.dao.EnvioTudoDao;
 import com.senior.model.Mensagem;
 import com.senior.model.Usuario;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 

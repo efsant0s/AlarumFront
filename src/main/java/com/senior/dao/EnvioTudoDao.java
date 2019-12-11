@@ -39,11 +39,10 @@ public class EnvioTudoDao {
     }
 
     public void lista() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = Utils.getIstancia();
         DatabaseReference myRootRef = database.getReference();
         DatabaseReference gerenRef = myRootRef.child("banco");
         final Map<String, Map<String, Usuario>> mapUsuario = new HashMap();
-        final Map<String, Map<String, Mensagem>> listaMsg = new HashMap();
         gerenRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
