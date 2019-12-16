@@ -75,7 +75,7 @@
                             <ui:repeat var="elem" value="#{envioTudoView.listaGerencia}">
                                 <div class="table-title">
                                     <h3> #{elem}
-                                        <b:commandButton  class="btn btn-primary" value="Enviar mensagem departamento" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
+                                        <p:commandButton  class="btn btn-primary" value="Enviar mensagem departamento" onclick="PF('dlg2').show();"  action="#{envioTudoView.setGrupoEnvio(elem)}"/>  
                                         <b:commandButton look="success" icon="refresh" style="margin-left:0.5%"/></h3>
                                 </div> 
                                 <p:separator /> 
@@ -123,19 +123,19 @@
                                 <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
 
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Tipo Msg" /></f:facet>
                                         <h:outputText value="#{elem.ie_tipo}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Título msg" /></f:facet>
                                         <h:outputText value="#{elem.ds_titulo}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Mensagem" /></f:facet>
                                         <h:outputText value=" #{elem.ds_mensagem}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Enviar" /></f:facet>
                                         <h:commandButton  class="btn btn-default" value="Enviar!"   actionListener="#{envioTudoView.enviaMensagemTodos(elem)}"/>   
                                     </h:column>  
                                 </h:dataTable> 
@@ -151,19 +151,19 @@
                                 <h:dataTable styleClass="table table-striped" value="#{mensagemView.listaMensagem}" var="elem" rows="15">
 
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Tipo Msg" /></f:facet>
                                         <h:outputText value="#{elem.ie_tipo}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Título msg" /></f:facet>
                                         <h:outputText value="#{elem.ds_titulo}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Mensagem" /></f:facet>
                                         <h:outputText value=" #{elem.ds_mensagem}" />
                                     </h:column>
                                     <h:column>
-                                        <f:facet name="header"><h:outputText value="#" /></f:facet>
+                                        <f:facet name="header"><h:outputText value="Enviar" /></f:facet>
                                         <b:commandButton  look="primary" value="Enviar!"  actionListener="#{envioTudoView.enviaMensagemGrupo(elem)}"/>   
                                     </h:column>  
                                 </h:dataTable> 
